@@ -1,24 +1,32 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import Timeline from './Timeline';
+import Submit from './Submit';
 
 function App() {
+  const [tweets, setTweets] = React.useState([
+    {
+      id: 0,
+      icon: '🌽',
+      displayName: 'もろこし太郎',
+      accountName: 'morokoshi',
+      content: '今日も1日もろこしがうまい'
+    },
+    {
+      id: 1,
+      icon: '🦐',
+      displayName: 'エビデンス',
+      accountName: 'evidence',
+      content: 'かにみそたべたい'
+    }
+  ]);
+
+  const submitTweet = React.useCallback((tweet) => setTweets((prev) => [tweet, ...prev]), [setTweets]);
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Timeline tweets={tweets}/>
+      <Submit submitTweet={submitTweet}/>
     </div>
   );
 }
